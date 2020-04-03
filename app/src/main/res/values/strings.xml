@@ -7,10 +7,19 @@
 
     <!-- VENTANA LOGIN -->
     <string name="mensajeBienvenida">BIENVENIDO A MI SALUD APP</string>
-    <string name="debajoBienvenida">Registrate para ingresar</string>
+    <string name="debajoBienvenida">Ingresa para continuar</string>
     <string name="hint_usuario">Usuario</string>
     <string name="hint_contraseña">Contraseña</string>
     <string name="olvidarContraseña">HE OLVIDADO MI CONTRASEÑA</string>
     <string name="ingresar">Ingresar</string>
     <string name="Registrate">Registrate</string>
+
+    <!-- Ventana Registro -->
+    <string name="bienvenida">Bienvenido</string>
+    <string name="contenido">Registrate Para Ingresar</string>
+    <string name="hint_nombres">Nombres</string>
+    <string name="hint_email">E-mail</string>
+    <string name="hint_Celular">Celular</string>
+    <string name="go">Registrarme</string>
+    <string name="tengoCuenta">Tengo una Cuenta</string>
 </resources>

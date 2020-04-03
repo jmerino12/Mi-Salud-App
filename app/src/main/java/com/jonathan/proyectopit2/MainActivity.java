@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
 
         //Hooks
-        imagen = findViewById(R.id.imageView);
+        imagen = findViewById(R.id.icono);
         logo = findViewById(R.id.nombreapp);
         slogan = findViewById(R.id.slogan);
 
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 Pair[] pairs  = new Pair[2];
                 pairs[0] = new Pair<View,String>(imagen,"logo_image");
                 pairs[1] = new Pair<View,String>(logo,"logo_text");
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this,pairs);
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, pairs);
                 startActivity(intent,options.toBundle());
                 //startActivity(intent);
                 //finish();
