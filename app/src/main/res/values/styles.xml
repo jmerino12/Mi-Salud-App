@@ -1,11 +1,16 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="myapp" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#FF5252</item>
-        <item name="colorPrimaryDark">#B30021</item>
+        <item name="colorPrimary">#00BFA5</item>
+        <item name="colorPrimaryDark">#008e77</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+    <!-- Desahabilita el tema de los botones y puedes colocarle el color que prefieras. -->
+    <style name="Botones" parent="@style/Widget.MaterialComponents.Button.TextButton">
+        <item name="backgroundTint">#00000000</item>
     </style>
 
 </resources>
