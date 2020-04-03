@@ -67,6 +67,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/bnt_olvidecontrasena"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -77,6 +78,7 @@
             style="@style/Botones"/>
 
         <Button
+            android:id="@+id/btn_entrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ingresar"
@@ -85,6 +87,7 @@
             android:layout_marginBottom="5dp"/>
 
         <Button
+            android:id="@+id/btn_registrarse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
