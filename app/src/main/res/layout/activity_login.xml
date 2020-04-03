@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-
     android:orientation="vertical"
     android:background="#FFFFFF"
     tools:context=".Login">
@@ -15,7 +14,8 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:transitionName="logo_image"
-        android:src="@drawable/icono"/>
+        android:src="@drawable/icono"
+        android:contentDescription="@string/descripcion" />
 
     <TextView
         android:id="@+id/mensajeBinevenido"
@@ -24,13 +24,13 @@
         android:layout_height="wrap_content"
         android:paddingTop="10sp"
         android:fontFamily="@font/fredoka_one"
-        android:text="BIENVENIDO A MI SALUD APP"
+        android:text="@string/mensajeBienvenida"
         android:textSize="40sp"
         android:textColor="#000"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Registrate para ingresar"
+        android:text="@string/debajoBienvenida"
         android:textSize="18sp"
         android:fontFamily="@font/antic"/>
     <LinearLayout
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/usuario"
-            android:hint="Usuario"
+            android:hint="@string/hint_usuario"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/contrasena"
-            android:hint="Contraseña"
+            android:hint="@string/hint_contraseña"
             app:passwordToggleEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -72,14 +72,14 @@
             android:layout_gravity="right"
             android:layout_margin="5dp"
             android:elevation="0dp"
-            android:text="HE OLVIDADO MI CONTRASEÑA"
+            android:text="@string/olvidarContraseña"
             android:textColor="#000"
             style="@style/Botones"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ingresar"
+            android:text="@string/ingresar"
             android:textColor="#fff"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"/>
@@ -91,7 +91,7 @@
             android:layout_margin="5dp"
             android:elevation="0dp"
             style="@style/Botones"
-            android:text="Registrate"
+            android:text="@string/Registrate"
             android:textColor="#000"/>
 
     </LinearLayout>

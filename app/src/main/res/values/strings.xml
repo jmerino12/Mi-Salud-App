@@ -3,4 +3,14 @@
     <string name="nombre_app">Mi Salud</string>
     <string name="slogan_screensplah">Seguimiento de tu Presión Arterial</string>
     <string name="descripcion">Mi Salud logo</string>
+
+
+    <!-- VENTANA LOGIN -->
+    <string name="mensajeBienvenida">BIENVENIDO A MI SALUD APP</string>
+    <string name="debajoBienvenida">Registrate para ingresar</string>
+    <string name="hint_usuario">Usuario</string>
+    <string name="hint_contraseña">Contraseña</string>
+    <string name="olvidarContraseña">HE OLVIDADO MI CONTRASEÑA</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="Registrate">Registrate</string>
 </resources>
