@@ -13,12 +13,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Login extends AppCompatActivity {
     Button registrarme,login_btn;
     ImageView image;
     TextView logoText,sloganText;
     TextInputLayout username,password;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +38,6 @@ public class Login extends AppCompatActivity {
         password = findViewById(R.id.password);
         login_btn = findViewById(R.id.btn_entrar);
 
-
         registrarme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,7 +52,6 @@ public class Login extends AppCompatActivity {
                 pairs[6] = new Pair<View,String>(registrarme,"login_singup_tran");
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
                 startActivity(intent,options.toBundle());
-
             }
         });
     }

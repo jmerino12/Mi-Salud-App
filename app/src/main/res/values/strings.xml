@@ -22,4 +22,7 @@
     <string name="hint_Celular">Celular</string>
     <string name="go">Registrarme</string>
     <string name="tengoCuenta">Tengo una Cuenta</string>
+
+
+    <string name="exitoso">Registro Exitoso</string>
 </resources>
