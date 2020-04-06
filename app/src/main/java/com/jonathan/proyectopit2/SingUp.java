@@ -1,5 +1,6 @@
 package com.jonathan.proyectopit2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,16 +9,23 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jonathan.proyectopit2.model.Usuarios;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class SingUp extends AppCompatActivity {
@@ -26,6 +34,7 @@ public class SingUp extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference reference;
     TextInputLayout regnombre, regusuario,regemail,regcelular,regcontrasena;
+    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +48,8 @@ public class SingUp extends AppCompatActivity {
        regcelular = findViewById(R.id.reg_celular);
        regcontrasena = findViewById(R.id.reg_contrasena);
        linearLayout = findViewById(R.id.linearLayout);
+       mAuth =  FirebaseAuth.getInstance();
+       reference = FirebaseDatabase.getInstance().getReference();
        //iniciarlizarFirebase();
 
         btnTengoCuenta.setOnClickListener(new View.OnClickListener() {
@@ -175,25 +186,36 @@ public class SingUp extends AppCompatActivity {
         if(!validarNombre() | !validarUsuario() | !validarEmail() | !validarCelular() | !validarContrasena()){
             return;
         }
+        final String nombre = regnombre.getEditText().getText().toString();
+        final String usuario = regusuario.getEditText().getText().toString();
+        final String email = regemail.getEditText().getText().toString();
+        final String celular = regcelular.getEditText().getText().toString();
+        final String contrasena = regcontrasena.getEditText().getText().toString();
+        mAuth.createUserWithEmailAndPassword(email, contrasena).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    String id = mAuth.getCurrentUser().getUid();
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("nombres", nombre);
+                    map.put("usuario", usuario);
+                    map.put("email",email);
+                    map.put("celular",celular);
+                    map.put("contrasena",contrasena);
+                    map.put("id",id);
+                    reference.child("Usuarios").child(id).setValue(map);
+                    Snackbar snackbar = Snackbar
+                            .make(linearLayout, "Registro Exitoso", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    limpiarcajas();
+                }else {
+                    limpiarcajas();
+                    Snackbar snackbar = Snackbar
+                            .make(linearLayout, "No se pudo registrar este usuario", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+            }
+        });
 
-        String nombre = regnombre.getEditText().getText().toString();
-        String usuario = regusuario.getEditText().getText().toString();
-        String email = regemail.getEditText().getText().toString();
-        String celular = regcelular.getEditText().getText().toString();
-        String contrasena = regcontrasena.getEditText().getText().toString();
-        Usuarios usuarios = new Usuarios();
-        usuarios.setUdid(UUID.randomUUID().toString());
-        usuarios.setNombres(nombre);
-        usuarios.setUsuario(usuario);
-        usuarios.setEmail(email);
-        usuarios.setCelular(celular);
-        usuarios.setContrasena(contrasena);
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference();
-        reference.child("Usuarios").child(usuarios.getUsuario()).setValue(usuarios);
-        limpiarcajas();
-        Snackbar snackbar = Snackbar
-                .make(linearLayout, "Registro Exitoso", Snackbar.LENGTH_LONG);
-        snackbar.show();
     }
 }

@@ -11,6 +11,15 @@ public class Usuarios {
     public Usuarios() {
     }
 
+    public Usuarios(String nombres, String usuario, String email, String celular, String contrasena, String udid) {
+        Nombres = nombres;
+        this.usuario = usuario;
+        this.email = email;
+        this.celular = celular;
+        this.contrasena = contrasena;
+        this.udid = udid;
+    }
+
     public String getUdid() {
         return udid;
     }

@@ -6,14 +6,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,8 +38,9 @@ public class Login extends AppCompatActivity {
     Button registrarme,login_btn;
     ImageView image;
     TextView logoText,sloganText;
-    TextInputLayout username,password;
-    Usuarios usuario;
+    TextInputLayout emailsingin,password;
+    FirebaseAuth auth;
+    LinearLayout loginLayout;
 
 
 
@@ -44,9 +54,11 @@ public class Login extends AppCompatActivity {
         image = findViewById(R.id.logoLogin);
         logoText = findViewById(R.id.mensajeBinevenido);
         sloganText = findViewById(R.id.sloganmensaje);
-        username = findViewById(R.id.usuario);
+        emailsingin = findViewById(R.id.usuario);
         password = findViewById(R.id.password);
+        loginLayout = findViewById(R.id.layout_login);
         login_btn = findViewById(R.id.btn_entrar);
+        auth = FirebaseAuth.getInstance();
 
         registrarme.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +68,7 @@ public class Login extends AppCompatActivity {
                 pairs[0] = new Pair<View,String>(image,"logo_image");
                 pairs[1] = new Pair<View,String>(logoText,"logo_text");
                 pairs[2] = new Pair<View,String>(sloganText,"logo_desc");
-                pairs[3] = new Pair<View,String>(username,"username_tran");
+                pairs[3] = new Pair<View,String>(emailsingin,"username_tran");
                 pairs[4] = new Pair<View,String>(password,"password_tran");
                 pairs[5] = new Pair<View,String>(login_btn,"button_tran");
                 pairs[6] = new Pair<View,String>(registrarme,"login_singup_tran");
@@ -67,7 +79,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void loginUsuario(View view) {
-        if (!validarUsuario() | !validarContrasena()){
+        if (!validarEmail() | !validarContrasena()){
             return;
         }else{
             isUser();
@@ -75,48 +87,26 @@ public class Login extends AppCompatActivity {
     }
 
     private void isUser() {
-        final String userEnteredUsername = username.getEditText().getText().toString().trim();
-        final String userEnteredPassword = password.getEditText().getText().toString().trim();
-        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Usuarios");
-        Query checkUser = reference.orderByChild("usuario").equalTo(userEnteredUsername);
-        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+        final String email = emailsingin.getEditText().getText().toString();
+        final String contrasena = password.getEditText().getText().toString();
+        auth.signInWithEmailAndPassword(email,contrasena).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    username.setError(null);
-                    username.setErrorEnabled(false);
-                    String passwordFromDB = dataSnapshot.child(userEnteredUsername).child("contrasena").getValue(String.class);
-                    if (passwordFromDB.equals(userEnteredPassword)) {
-                        username.setError(null);
-                        username.setErrorEnabled(false);
-                        String nameFromDB = dataSnapshot.child(userEnteredUsername).child("nombres").getValue(String.class);
-                        String usernameFromDB = dataSnapshot.child(userEnteredUsername).child("usuario").getValue(String.class);
-                        String phoneNoFromDB = dataSnapshot.child(userEnteredUsername).child("celular").getValue(String.class);
-                        String emailFromDB = dataSnapshot.child(userEnteredUsername).child("email").getValue(String.class);
-                        Intent intent = new Intent(getApplicationContext(), Dashboard.class);
-                        intent.putExtra("nombre", nameFromDB);
-                        intent.putExtra("usuario", usernameFromDB);
-                        intent.putExtra("email", emailFromDB);
-                        intent.putExtra("celular", phoneNoFromDB);
-                        intent.putExtra("contrasena", passwordFromDB);
-                        startActivity(intent);
-                    } else {
-                       // progressBar.setVisibility(View.GONE);
-                        password.setError("Contraseña erronea");
-                        password.requestFocus();
-                    }
-                } else {
-                    //progressBar.setVisibility(View.GONE);
-                    username.setError("El usuarios no existe");
-                    username.requestFocus();
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    FirebaseUser user = auth.getCurrentUser();
+                    System.out.println(user);
+                    startActivity(new Intent(Login.this,Dashboard.class));
+                    finish();
+                }else {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Login.this.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(password.getWindowToken(), 0);
+                    Snackbar snackbar = Snackbar
+                            .make(loginLayout, "No se pudo iniciar seision, Compruebe los datos", Snackbar.LENGTH_LONG);
+                    snackbar.show();
                 }
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
         });
+
     }
 
     private boolean validarContrasena() {
@@ -132,14 +122,19 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    private boolean validarUsuario() {
-        String val = username.getEditText().getText().toString();
+    private boolean validarEmail() {
+        String val = emailsingin.getEditText().getText().toString();
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
         if (val.isEmpty()) {
-            username.setError("El campo no puede estar vacío.");
+            emailsingin.setError("El campo no puede estar vacío.");
             return false;
-        }  else {
-            username.setError(null);
-            username.setErrorEnabled(false);
+        } else if (!val.matches(emailPattern)) {
+            emailsingin.setError("Dirección de correo electrónico no válida");
+            return false;
+        } else {
+            emailsingin.setError(null);
+            emailsingin.setErrorEnabled(false);
             return true;
         }
     }
