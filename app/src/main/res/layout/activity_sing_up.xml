@@ -101,12 +101,14 @@
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
+
     <Button
+        android:id="@+id/btn_registro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:transitionName="button_tran"
-        android:id="@+id/btn_registro"
-        android:text="@string/go"/>
+        android:onClick="registroUsuario"
+        android:text="@string/go"
+        android:transitionName="button_tran" />
     <Button
         android:id="@+id/btn_tengo_cuenta"
         android:layout_width="match_parent"

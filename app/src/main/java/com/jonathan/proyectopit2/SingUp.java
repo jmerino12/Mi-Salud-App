@@ -47,7 +47,7 @@ public class SingUp extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        btnRegistro.setOnClickListener(new View.OnClickListener() {
+     /*   btnRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String nombre = regnombre.getEditText().getText().toString();
@@ -70,7 +70,7 @@ public class SingUp extends AppCompatActivity {
                         .make(linearLayout, "Registro Exitoso", Snackbar.LENGTH_LONG);
                 snackbar.show();
             }
-        });
+        });*/
     }
 
     private void limpiarcajas() {
@@ -85,5 +85,115 @@ public class SingUp extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         database = FirebaseDatabase.getInstance();
         reference = database.getReference();
+    }
+
+    private Boolean validarNombre(){
+        String val = regnombre.getEditText().getText().toString();
+        if (val.isEmpty()) {
+            regnombre.setError("El campo no puede estar vacío.");
+            return false;
+        }
+        else {
+            regnombre.setError(null);
+            regnombre.setErrorEnabled(false);
+            return true;
+        }
+    }
+    private Boolean validarUsuario(){
+        String val = regusuario.getEditText().getText().toString();
+        String noWhiteSpace = "\\A\\w{4,20}\\z";
+
+        if (val.isEmpty()) {
+            regusuario.setError("El campo no puede estar vacío.");
+            return false;
+        } else if (val.length() >= 15) {
+            regusuario.setError("Nombre de usuario demasiado largo");
+            return false;
+        } else if (!val.matches(noWhiteSpace)) {
+            regusuario.setError("No se permiten espacios en blanco");
+            return false;
+        } else {
+            regusuario.setError(null);
+            regusuario.setErrorEnabled(false);
+            return true;
+        }
+    }
+    private Boolean validarEmail(){
+        String val = regemail.getEditText().getText().toString();
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+        if (val.isEmpty()) {
+            regemail.setError("El campo no puede estar vacío.");
+            return false;
+        } else if (!val.matches(emailPattern)) {
+            regemail.setError("Dirección de correo electrónico no válida");
+            return false;
+        } else {
+            regemail.setError(null);
+            regemail.setErrorEnabled(false);
+            return true;
+        }
+    }
+    private Boolean validarCelular(){
+        String val = regcelular.getEditText().getText().toString();
+
+        if (val.isEmpty()) {
+            regcelular.setError("El campo no puede estar vacío.");
+            return false;
+        } else {
+            regcelular.setError(null);
+            regcelular.setErrorEnabled(false);
+            return true;
+        }
+    }
+    private Boolean validarContrasena(){
+        String val = regcontrasena.getEditText().getText().toString();
+        String passwordVal = "^" +
+                //"(?=.*[0-9])" +         //at least 1 digit
+                //"(?=.*[a-z])" +         //at least 1 lower case letter
+                //"(?=.*[A-Z])" +         //at least 1 upper case letter
+                "(?=.*[a-zA-Z])" +      //any letter
+                //"(?=.*[@#$%^&+=])" +    //at least 1 special character
+                "(?=\\S+$)" +           //no white spaces
+                ".{4,}" +               //at least 4 characters
+                "$";
+
+        if (val.isEmpty()) {
+            regcontrasena.setError("El campo no puede estar vacío.");
+            return false;
+        } else if (!val.matches(passwordVal)) {
+            regcontrasena.setError("La contraseña es demasiado débil");
+            return false;
+        } else {
+            regcontrasena.setError(null);
+            regcontrasena.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    public void registroUsuario(View view) {
+        if(!validarNombre() | !validarUsuario() | !validarEmail() | !validarCelular() | !validarContrasena()){
+            return;
+        }
+
+        String nombre = regnombre.getEditText().getText().toString();
+        String usuario = regusuario.getEditText().getText().toString();
+        String email = regemail.getEditText().getText().toString();
+        String celular = regcelular.getEditText().getText().toString();
+        String contrasena = regcontrasena.getEditText().getText().toString();
+        Usuarios usuarios = new Usuarios();
+        usuarios.setUdid(UUID.randomUUID().toString());
+        usuarios.setNombres(nombre);
+        usuarios.setUsuario(usuario);
+        usuarios.setEmail(email);
+        usuarios.setCelular(celular);
+        usuarios.setContrasena(contrasena);
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference();
+        reference.child("Usuarios").child(usuarios.getUsuario()).setValue(usuarios);
+        limpiarcajas();
+        Snackbar snackbar = Snackbar
+                .make(linearLayout, "Registro Exitoso", Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 }

@@ -5,7 +5,7 @@ public class Usuarios {
     private String Nombres;
     private String usuario;
     private String email;
-    private String ceular;
+    private String celular;
     private String contrasena;
 
     public Usuarios() {
@@ -43,12 +43,12 @@ public class Usuarios {
         this.email = email;
     }
 
-    public String getCeular() {
-        return ceular;
+    public String getCelular() {
+        return celular;
     }
 
-    public void setCeular(String ceular) {
-        this.ceular = ceular;
+    public void setCelular(String celular) {
+        this.celular = celular;
     }
 
     public String getContrasena() {
@@ -58,4 +58,6 @@ public class Usuarios {
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
+
+
 }

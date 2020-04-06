@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">#008e77</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowContentTransitions">true</item>
+
     </style>
     <!-- Desahabilita el tema de los botones y puedes colocarle el color que prefieras. -->
     <style name="Botones" parent="@style/Widget.MaterialComponents.Button.TextButton">

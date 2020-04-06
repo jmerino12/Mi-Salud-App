@@ -87,13 +87,14 @@
 
         <Button
             android:id="@+id/btn_entrar"
-            android:transitionName="button_tran"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:onClick="loginUsuario"
             android:text="@string/ingresar"
             android:textColor="#fff"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            android:transitionName="button_tran" />
 
         <Button
             android:id="@+id/btn_registrarse"
