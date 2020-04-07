@@ -23,6 +23,13 @@
     <string name="go">Registrarme</string>
     <string name="tengoCuenta">Tengo una Cuenta</string>
 
+    <!-- Ventana datos -->
+    <string name="informacion">Informacion</string>
+    <string name="jonathan">Jonathan Meriño</string>
+    <string name="fecha">Fecha</string>
+    <string name="hora">Hora</string>
+    <string name="añadir">Añadir</string>
+
 
     <string name="exitoso">Registro Exitoso</string>
 </resources>
