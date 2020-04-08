@@ -101,7 +101,7 @@ public class Login extends AppCompatActivity {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Login.this.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(password.getWindowToken(), 0);
                     Snackbar snackbar = Snackbar
-                            .make(loginLayout, "No se pudo iniciar seision, Compruebe los datos", Snackbar.LENGTH_LONG);
+                            .make(loginLayout, "No se pudo iniciar sesión, Compruebe los datos", Snackbar.LENGTH_LONG);
                     snackbar.show();
                 }
             }
