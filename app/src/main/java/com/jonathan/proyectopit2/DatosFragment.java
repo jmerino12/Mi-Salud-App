@@ -24,7 +24,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import com.jonathan.proyectopit2.controller.PagerController;
+import com.jonathan.proyectopit2.tabs.AdicionalesFragment;
+import com.jonathan.proyectopit2.tabs.PesoFragment;
+import com.jonathan.proyectopit2.tabs.PresionFragment;
 
 
 import java.util.Calendar;
@@ -50,7 +53,8 @@ public class DatosFragment extends Fragment {
         hora = view.findViewById(R.id.hora);
         date = view.findViewById(R.id.fecha);
         nombre = view.findViewById(R.id.nombresDatos);
-
+        tab = view.findViewById(R.id.tabs);
+        viewPager = view.findViewById(R.id.viewer);
 
         hora.setInputType(InputType.TYPE_NULL);
         date.setInputType(InputType.TYPE_NULL);
@@ -98,6 +102,43 @@ public class DatosFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setUpViewerPager(viewPager);
+        tab.setupWithViewPager(viewPager);
+        tab.getTabAt(0).setIcon(R.drawable.ic_inspector);
+        tab.getTabAt(0).setIcon(R.drawable.ic_atencion);
+        tab.getTabAt(0).setIcon(R.drawable.ic_escala);
+        tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    private void setUpViewerPager(ViewPager viewPager) {
+        PagerController adapter = new PagerController(getChildFragmentManager(),0);
+
+        adapter.addFragment(new PresionFragment(),"Presion");
+        adapter.addFragment(new AdicionalesFragment(),"Adicionales");
+        adapter.addFragment(new PesoFragment(),"Peso");
+
+        viewPager.setAdapter(adapter);
+
     }
 
     private void obtenerInfoUsuario() {

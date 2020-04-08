@@ -71,23 +71,10 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="1dp">
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:icon="@drawable/ic_inspector"
-                    android:text="" />
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:icon="@drawable/ic_atencion"
-                    android:text="" />
-                <com.google.android.material.tabs.TabItem
-                    android:icon="@drawable/ic_escala"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="" />
+
             </com.google.android.material.tabs.TabLayout>
             <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/tabs"/>
