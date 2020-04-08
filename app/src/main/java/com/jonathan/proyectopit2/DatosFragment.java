@@ -14,7 +14,9 @@ import android.widget.TimePicker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +24,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+
 
 import java.util.Calendar;
 
@@ -32,6 +36,12 @@ public class DatosFragment extends Fragment {
     private TimePickerDialog timePickerDialog;
     private DatabaseReference database;
     private TextView nombre;
+    private TabLayout tab;
+    private ViewPager viewPager;
+
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,6 +50,8 @@ public class DatosFragment extends Fragment {
         hora = view.findViewById(R.id.hora);
         date = view.findViewById(R.id.fecha);
         nombre = view.findViewById(R.id.nombresDatos);
+
+
         hora.setInputType(InputType.TYPE_NULL);
         date.setInputType(InputType.TYPE_NULL);
         auth = FirebaseAuth.getInstance();
@@ -84,6 +96,7 @@ public class DatosFragment extends Fragment {
                 timePickerDialog.show();
             }
         });
+
         return view;
     }
 
