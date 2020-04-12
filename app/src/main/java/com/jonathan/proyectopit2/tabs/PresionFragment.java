@@ -38,34 +38,30 @@ public class PresionFragment extends Fragment {
         View view =  lf.inflate(R.layout.fragment_presion, container, false);
 
         WheelView wheelViewSistolic = view.findViewById(R.id.wheelviewSistolica);
-        WheelView wheelViewSistolic2 =view.findViewById(R.id.wheelviewSistolica2);
-        wheelViewSistolic.setTextSize(20);
-        wheelViewSistolic.setLineSpacingMultiplier(2f);
-        wheelViewSistolic.setDividerType(WheelView.DividerType.CIRCLE);
+        WheelView wheelViewDiastolica =view.findViewById(R.id.wheelviewDisatolica);
+        wheelViewSistolic.setTextSize(30);
+        wheelViewSistolic.setDividerWidth(2);
+        wheelViewSistolic.setDividerType(WheelView.DividerType.WRAP);
         wheelViewSistolic.setTextColorCenter(Color.RED);
         wheelViewSistolic.setDividerColor(Color.rgb(0,191,165));
 
-        wheelViewSistolic2.setTextSize(20);
-        wheelViewSistolic2.setLineSpacingMultiplier(2f);
-        wheelViewSistolic2.setDividerType(WheelView.DividerType.CIRCLE);
-        wheelViewSistolic2.setTextColorCenter(Color.RED);
-        wheelViewSistolic2.setDividerColor(Color.rgb(0,191,165));
+        wheelViewDiastolica.setTextSize(30);
+        wheelViewDiastolica.setDividerType(WheelView.DividerType.WRAP);
+        wheelViewDiastolica.setTextColorCenter(Color.GREEN);
+        wheelViewDiastolica.setDividerColor(Color.rgb(0,191,165));
+        wheelViewDiastolica.setDividerWidth(2);
 
 
 
-
-        final List<String> mOptionsItems = new ArrayList<>();
-        mOptionsItems.add("10");
-        mOptionsItems.add("20");
-        mOptionsItems.add("30");
-        mOptionsItems.add("40");
-        mOptionsItems.add("50");
-        mOptionsItems.add("60");
-        mOptionsItems.add("70");
-        wheelViewSistolic.setAdapter(new ArrayWheelAdapter(mOptionsItems));
-        wheelViewSistolic2.setAdapter(new ArrayWheelAdapter(mOptionsItems));
-
-
+        final List<Integer> Items = new ArrayList<>();
+        for (int i = 40; i<= 250; i++){
+            Items.add(i);
+        }
+        ArrayWheelAdapter o =  new ArrayWheelAdapter(Items);
+        wheelViewSistolic.setAdapter(o);
+        wheelViewDiastolica.setAdapter(o);
+        wheelViewSistolic.setCurrentItem(80);
+        wheelViewDiastolica.setCurrentItem(40);
 
         return view;
     }
