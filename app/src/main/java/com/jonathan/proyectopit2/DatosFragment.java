@@ -110,8 +110,8 @@ public class DatosFragment extends Fragment {
         setUpViewerPager(viewPager);
         tab.setupWithViewPager(viewPager);
         tab.getTabAt(0).setIcon(R.drawable.ic_inspector);
-        tab.getTabAt(0).setIcon(R.drawable.ic_atencion);
-        tab.getTabAt(0).setIcon(R.drawable.ic_escala);
+        tab.getTabAt(1).setIcon(R.drawable.ic_atencion);
+        tab.getTabAt(2).setIcon(R.drawable.ic_escala);
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -133,9 +133,9 @@ public class DatosFragment extends Fragment {
     private void setUpViewerPager(ViewPager viewPager) {
         PagerController adapter = new PagerController(getChildFragmentManager(),0);
 
-        adapter.addFragment(new PresionFragment(),"Presion");
-        adapter.addFragment(new AdicionalesFragment(),"Adicionales");
-        adapter.addFragment(new PesoFragment(),"Peso");
+        adapter.addFragment(new PresionFragment(),"");
+        adapter.addFragment(new AdicionalesFragment(),"");
+        adapter.addFragment(new PesoFragment(),"");
 
         viewPager.setAdapter(adapter);
 
