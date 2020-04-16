@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="164dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/icono" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/fecha"
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fredoka_one"
+                    android:text="10/05/2018" />
+
+                <TextView
+                    android:id="@+id/hora"
+                    android:layout_alignParentRight="true"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/fredoka_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="15:05" />
+
+                <TextView
+                    android:id="@+id/txtSistolica"
+                    android:layout_width="wrap_content"
+                    android:layout_height="34dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginBottom="70dp"
+                    android:fontFamily="@font/fredoka_one"
+                    android:text="120"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="69dp"
+                    android:layout_toEndOf="@+id/txtSistolica"
+                    android:fontFamily="@font/fredoka_one"
+                    android:text="/"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/txtDiastolica"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="63dp"
+                    android:layout_marginEnd="157dp"
+                    android:layout_toEndOf="@+id/textView7"
+                    android:fontFamily="@font/fredoka_one"
+                    android:text="80"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/txtAdicionalesdatos"
+                    android:layout_width="261dp"
+                    android:layout_height="42dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/fredoka_one"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:text="Tomada en el brazo derecho" />
+
+                <TextView
+                    android:id="@+id/txtPeso"
+                    android:layout_width="40dp"
+                    android:layout_height="21dp"
+                    android:layout_above="@+id/txtAdicionalesdatos"
+                    android:layout_below="@+id/hora"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="58dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/fredoka_one"
+                    android:text="80.5" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="12dp"
+                    android:fontFamily="@font/fredoka_one"
+                    android:layout_marginBottom="57dp"
+                    android:layout_toStartOf="@+id/txtPeso"
+                    android:text="Peso:" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

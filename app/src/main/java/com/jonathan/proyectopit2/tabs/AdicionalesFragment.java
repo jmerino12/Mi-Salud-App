@@ -3,19 +3,14 @@ package com.jonathan.proyectopit2.tabs;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.google.android.material.textfield.TextInputLayout;
-import com.jonathan.proyectopit2.DatosFragment;
 import com.jonathan.proyectopit2.R;
 import com.jonathan.proyectopit2.comunicacion.AdicionalesToDatos;
 
@@ -37,7 +32,7 @@ public class AdicionalesFragment extends Fragment {
                              Bundle savedInstanceState) {
         LayoutInflater lf = getActivity().getLayoutInflater();
         View view =  lf.inflate(R.layout.fragment_adicionales, container, false);
-        adicionales = view.findViewById(R.id.txtAdicionales);
+        adicionales = view.findViewById(R.id.txtAdicionalesdatos);
         adicionales.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

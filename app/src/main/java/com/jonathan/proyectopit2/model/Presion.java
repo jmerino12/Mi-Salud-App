@@ -12,6 +12,16 @@ public class Presion {
     public Presion() {
     }
 
+
+    public Presion(String fecha, String hora, String presionDiastolica, String presionSitolica, String adicionales, String peso) {
+        this.fecha = fecha;
+        this.hora = hora;
+        this.presionDiastolica = presionDiastolica;
+        this.presionSitolica = presionSitolica;
+        this.adicionales = adicionales;
+        this.peso = peso;
+    }
+
     public String getUdid() {
         return udid;
     }

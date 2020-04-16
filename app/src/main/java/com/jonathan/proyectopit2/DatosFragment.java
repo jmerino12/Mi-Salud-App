@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,7 +20,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,8 +40,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class DatosFragment extends Fragment {
@@ -76,7 +71,7 @@ public class DatosFragment extends Fragment {
         hora = view.findViewById(R.id.hora);
         date = view.findViewById(R.id.fecha);
         nombre = view.findViewById(R.id.nombresDatos);
-        adicionales = view.findViewById(R.id.txtAdicionales);
+        adicionales = view.findViewById(R.id.txtAdicionalesdatos);
         tab = view.findViewById(R.id.tabs);
         viewPager = view.findViewById(R.id.viewer);
         registar = view.findViewById(R.id.btnRegistrarDatos);
