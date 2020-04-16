@@ -18,6 +18,9 @@ import com.contrarywind.listener.OnItemSelectedListener;
 import com.contrarywind.view.WheelView;
 import com.jonathan.proyectopit2.DatosFragment;
 import com.jonathan.proyectopit2.R;
+import com.jonathan.proyectopit2.comunicacion.PresionToDatos;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +33,9 @@ import java.util.List;
 public class PresionFragment extends Fragment {
     private WheelView wheelViewSistolic,wheelViewDiastolica;
     private List<Integer> Items = new ArrayList<>();
-    private String sistolica,diastolica;
+    private int sistolica,diastolica;
+    private String AuxSistolica,AuxDistolica;
+    private EventBus bus =  EventBus.getDefault();
     public PresionFragment() {
         // Required empty public constructor
     }
@@ -68,17 +73,20 @@ public class PresionFragment extends Fragment {
         wheelViewSistolic.setCurrentItem(80);
         wheelViewDiastolica.setCurrentItem(40);
 
-        Bundle datosAEnviar = new Bundle();
         wheelViewSistolic.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(int index) {
-                sistolica = o.getItem(index).toString();
+                sistolica = (int) o.getItem(index);
+                AuxSistolica = sistolica+"";
+                bus.post(new PresionToDatos(AuxSistolica,AuxDistolica));
             }
         });
         wheelViewDiastolica.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(int index) {
-                diastolica = o.getItem(index).toString();
+                diastolica = (int) o.getItem(index);
+                AuxDistolica = diastolica+"";
+                bus.post(new PresionToDatos(AuxSistolica,AuxDistolica));
             }
         });
 

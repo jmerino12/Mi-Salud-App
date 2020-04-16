@@ -77,6 +77,9 @@ public class PesoFragment extends Fragment {
             @Override
             public void onItemSelected(int index) {
                 pesoDerecho = (int) o.getItem(index);
+                Aux = pesoDerecho+"."+pesoIzquierdo;
+                //Toast.makeText(getActivity(),""+Aux,Toast.LENGTH_LONG).show();
+                bus.post(new PesoToDatos(Aux));
             }
         });
         Kilogramo.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -84,7 +87,7 @@ public class PesoFragment extends Fragment {
             public void onItemSelected(int index) {
                 pesoIzquierdo = (int) p.getItem(index);
                 Aux = pesoDerecho+"."+pesoIzquierdo;
-                Toast.makeText(getActivity(),""+Aux,Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(),""+Aux,Toast.LENGTH_LONG).show();
                 bus.post(new PesoToDatos(Aux));
             }
         });

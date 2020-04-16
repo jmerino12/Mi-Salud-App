@@ -31,7 +31,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jonathan.proyectopit2.comunicacion.AdicionalesToDatos;
 import com.jonathan.proyectopit2.comunicacion.PesoToDatos;
+import com.jonathan.proyectopit2.comunicacion.PresionToDatos;
 import com.jonathan.proyectopit2.controller.PagerController;
+import com.jonathan.proyectopit2.model.Presion;
 import com.jonathan.proyectopit2.tabs.AdicionalesFragment;
 import com.jonathan.proyectopit2.tabs.PesoFragment;
 import com.jonathan.proyectopit2.tabs.PresionFragment;
@@ -41,6 +43,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class DatosFragment extends Fragment {
     private TextInputEditText date,hora;
@@ -53,11 +58,13 @@ public class DatosFragment extends Fragment {
     private TabLayout tab;
     private ViewPager viewPager;
     private Button registar;
-    AdicionalesFragment adicionalesFragment;
-    private String aux,aux2;
+
+    private String auxAdicioanles,auxPeso, auxDistolica, auxSistolica;
     private EventBus bus = EventBus.getDefault();
 
-
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference reference;
+    private FirebaseAuth mAuth;
 
 
 
@@ -73,12 +80,6 @@ public class DatosFragment extends Fragment {
         tab = view.findViewById(R.id.tabs);
         viewPager = view.findViewById(R.id.viewer);
         registar = view.findViewById(R.id.btnRegistrarDatos);
-        registar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            Toast.makeText(getActivity(),""+aux+","+aux2,Toast.LENGTH_LONG).show();
-            }
-        });
 
         hora.setInputType(InputType.TYPE_NULL);
         date.setInputType(InputType.TYPE_NULL);
@@ -122,6 +123,33 @@ public class DatosFragment extends Fragment {
                     }
                 },horas,minutos,false);
                 timePickerDialog.show();
+            }
+        });
+
+        registar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Presion presion = new Presion();
+                mAuth =  FirebaseAuth.getInstance();
+                reference = FirebaseDatabase.getInstance().getReference();
+                String id = mAuth.getCurrentUser().getUid();
+                String fecha = date.getText().toString();
+                String horaReg = hora.getText().toString();
+                String adicionales = auxAdicioanles.toString();
+                String peso = auxPeso.toString();
+
+
+                presion.setUdid(UUID.randomUUID().toString());
+                presion.setFecha(fecha);
+                presion.setPresionSitolica(auxSistolica);
+                presion.setPresionDiastolica(auxDistolica);
+                presion.setHora(horaReg);
+                presion.setAdicionales(adicionales);
+                presion.setPeso(peso);
+
+                reference.child("Presion").child(id).child(presion.getUdid()).setValue(presion);
+
+               // Toast.makeText(getActivity(),"Fecha:"+ fecha + "Hora:" + horaReg + "Sistolica: " +auxSistolica + "Diastolica: "+ auxDistolica + "Adicionales" + adicionales + "Peso:" + peso,Toast.LENGTH_LONG).show();
             }
         });
         return view;
@@ -198,11 +226,28 @@ public class DatosFragment extends Fragment {
     @Subscribe
     public void obtenerDatos(AdicionalesToDatos datos){
      String b = datos.getAdicionales();
-     aux = b;
+     if (b == null || b.isEmpty()){
+         auxAdicioanles = "";
+     }else {
+         auxAdicioanles = b;
+     }
+
     }
     @Subscribe
     public void obtenerPeso(PesoToDatos datos){
         String b = datos.getPeso();
-        aux2 = b;
+        if (b == null || b.isEmpty()) {
+            auxPeso = "";
+        }else {
+            auxPeso = b;
+        }
+
+    }
+    @Subscribe
+    public void obtenerPresion(PresionToDatos datos){
+        String a = datos.getDiastolica();
+        String b = datos.getSistolica();
+        auxDistolica = a;
+        auxSistolica = b;
     }
 }
