@@ -8,11 +8,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.bigkoo.pickerview.adapter.NumericWheelAdapter;
+import com.contrarywind.listener.OnItemSelectedListener;
 import com.contrarywind.view.WheelView;
 import com.jonathan.proyectopit2.R;
+import com.jonathan.proyectopit2.comunicacion.AdicionalesToDatos;
+import com.jonathan.proyectopit2.comunicacion.PesoToDatos;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +27,12 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class PesoFragment extends Fragment {
-     private WheelView Kilo,Kilogramo;
+    private WheelView Kilo,Kilogramo;
+    private EventBus bus =  EventBus.getDefault();
     final List<Integer> Kilos = new ArrayList<>();
+    final List<Integer> Kilogramoos = new ArrayList<>();
+    int pesoDerecho, pesoIzquierdo;
+    private String Aux;
     public PesoFragment() {
         // Required empty public constructor
     }
@@ -53,11 +63,31 @@ public class PesoFragment extends Fragment {
         for (int i = 40; i<= 250; i++){
             Kilos.add(i);
         }
-        Kilogramo.setAdapter(new NumericWheelAdapter(0,9));
-        ArrayWheelAdapter o =  new ArrayWheelAdapter(Kilos);
+        for (int j = 0; j<= 9;j++){
+            Kilogramoos.add(j);
+        }
+
+        final ArrayWheelAdapter o =  new ArrayWheelAdapter(Kilos);
+        final ArrayWheelAdapter p =  new ArrayWheelAdapter(Kilogramoos);
         Kilo.setAdapter(o);
+        Kilogramo.setAdapter(p);
         Kilogramo.setCurrentItem(0);
         Kilo.setCurrentItem(30);
+        Kilo.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(int index) {
+                pesoDerecho = (int) o.getItem(index);
+            }
+        });
+        Kilogramo.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(int index) {
+                pesoIzquierdo = (int) p.getItem(index);
+                Aux = pesoDerecho+"."+pesoIzquierdo;
+                Toast.makeText(getActivity(),""+Aux,Toast.LENGTH_LONG).show();
+                bus.post(new PesoToDatos(Aux));
+            }
+        });
 
         return view;
     }

@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jonathan.proyectopit2.comunicacion.AdicionalesToDatos;
+import com.jonathan.proyectopit2.comunicacion.PesoToDatos;
 import com.jonathan.proyectopit2.controller.PagerController;
 import com.jonathan.proyectopit2.tabs.AdicionalesFragment;
 import com.jonathan.proyectopit2.tabs.PesoFragment;
@@ -53,7 +54,7 @@ public class DatosFragment extends Fragment {
     private ViewPager viewPager;
     private Button registar;
     AdicionalesFragment adicionalesFragment;
-    private String aux;
+    private String aux,aux2;
     private EventBus bus = EventBus.getDefault();
 
 
@@ -75,7 +76,7 @@ public class DatosFragment extends Fragment {
         registar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Toast.makeText(getActivity(),""+aux,Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(),""+aux+","+aux2,Toast.LENGTH_LONG).show();
             }
         });
 
@@ -195,8 +196,13 @@ public class DatosFragment extends Fragment {
         bus.unregister(this);
     }
     @Subscribe
-    public void obtener(AdicionalesToDatos datos){
+    public void obtenerDatos(AdicionalesToDatos datos){
      String b = datos.getAdicionales();
      aux = b;
+    }
+    @Subscribe
+    public void obtenerPeso(PesoToDatos datos){
+        String b = datos.getPeso();
+        aux2 = b;
     }
 }
