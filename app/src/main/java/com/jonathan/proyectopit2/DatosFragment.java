@@ -110,7 +110,7 @@ public class DatosFragment extends Fragment {
             public void onClick(View v) {
                 final Calendar c= Calendar.getInstance();
                 int horas=c.get(Calendar.HOUR_OF_DAY);
-                int minutos=c.get(Calendar.MINUTE);
+                final int minutos=c.get(Calendar.MINUTE);
                 timePickerDialog = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -136,7 +136,7 @@ public class DatosFragment extends Fragment {
 
                 presion.setUdid(UUID.randomUUID().toString());
                 presion.setFecha(fecha);
-                presion.setPresionSitolica(auxSistolica);
+                presion.setPresionSistolica(auxSistolica);
                 presion.setPresionDiastolica(auxDistolica);
                 presion.setHora(horaReg);
                 presion.setAdicionales(adicionales);

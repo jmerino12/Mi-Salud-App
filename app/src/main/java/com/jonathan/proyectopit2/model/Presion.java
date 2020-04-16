@@ -5,7 +5,7 @@ public class Presion {
     private String fecha;
     private String hora;
     private String presionDiastolica;
-    private String presionSitolica;
+    private String presionSistolica;
     private String adicionales;
     private String peso;
 
@@ -13,11 +13,11 @@ public class Presion {
     }
 
 
-    public Presion(String fecha, String hora, String presionDiastolica, String presionSitolica, String adicionales, String peso) {
+    public Presion(String fecha, String hora, String presionDiastolica, String presionSistolica, String adicionales, String peso) {
         this.fecha = fecha;
         this.hora = hora;
         this.presionDiastolica = presionDiastolica;
-        this.presionSitolica = presionSitolica;
+        this.presionSistolica = presionSistolica;
         this.adicionales = adicionales;
         this.peso = peso;
     }
@@ -54,12 +54,12 @@ public class Presion {
         this.presionDiastolica = presionDiastolica;
     }
 
-    public String getPresionSitolica() {
-        return presionSitolica;
+    public String getPresionSistolica() {
+        return presionSistolica;
     }
 
-    public void setPresionSitolica(String presionSitolica) {
-        this.presionSitolica = presionSitolica;
+    public void setPresionSistolica(String presionSistolica) {
+        this.presionSistolica = presionSistolica;
     }
 
     public String getAdicionales() {

@@ -36,7 +36,8 @@ public class RegistrosAdapter extends RecyclerView.Adapter <RegistrosAdapter.Vie
         holder.txtpeso.setText(presion.getPeso());
         holder.txtfecha.setText(presion.getFecha());
         holder.txtdiastolica.setText(presion.getPresionDiastolica());
-        holder.txtSistolica.setText(presion.getPresionSitolica());
+        holder.txtSistolica.setText(presion.getPresionSistolica());
+        holder.txthora.setText(presion.getHora());
 
     }
 
@@ -46,12 +47,13 @@ public class RegistrosAdapter extends RecyclerView.Adapter <RegistrosAdapter.Vie
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView textViewMensaje,txtfecha,txtpeso,txtSistolica,txtdiastolica;
+        private TextView textViewMensaje,txtfecha,txtpeso,txtSistolica,txtdiastolica,txthora;
         public View view;
 
         public ViewHolder(View view){
             super(view);
             this.view =view;
+            this.txthora = view.findViewById(R.id.hora);
             this.txtfecha = view.findViewById(R.id.fecha);
             this.txtpeso = view.findViewById(R.id.txtPeso);
             this.txtdiastolica = view.findViewById(R.id.txtDiastolica);

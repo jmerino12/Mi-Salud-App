@@ -47,6 +47,7 @@ public class RegistroFragment extends Fragment {
 
     private void getDatos(){
         String id = mAuth.getCurrentUser().getUid();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Presion").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -56,7 +57,7 @@ public class RegistroFragment extends Fragment {
                         String peso = ds.child("peso").getValue().toString();
                         String adicionales = ds.child("adicionales").getValue().toString();
                         String presionDiastolica = ds.child("presionDiastolica").getValue().toString();
-                        String presionSiastolica = ds.child("presionSitolica").getValue().toString();
+                        String presionSiastolica = ds.child("presionSistolica").getValue().toString();
                         String fecha = ds.child("fecha").getValue().toString();
                         arrayList.add(new Presion(fecha,hora,presionDiastolica,presionSiastolica,adicionales,peso));
                     }
