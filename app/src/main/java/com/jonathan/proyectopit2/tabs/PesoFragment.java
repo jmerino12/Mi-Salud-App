@@ -21,7 +21,8 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class PesoFragment extends Fragment {
-
+     private WheelView Kilo,Kilogramo;
+    final List<Integer> Kilos = new ArrayList<>();
     public PesoFragment() {
         // Required empty public constructor
     }
@@ -34,8 +35,8 @@ public class PesoFragment extends Fragment {
         LayoutInflater lf = getActivity().getLayoutInflater();
         View view =  lf.inflate(R.layout.fragment_peso, container, false);
 
-        WheelView Kilo = view.findViewById(R.id.wheelviewKilo);
-        WheelView Kilogramo =view.findViewById(R.id.wheelviewkilogramo);
+        Kilo = view.findViewById(R.id.wheelviewKilo);
+        Kilogramo =view.findViewById(R.id.wheelviewkilogramo);
         Kilo.setTextSize(30);
         Kilo.setDividerType(WheelView.DividerType.WRAP);
         Kilo.setTextColorCenter(Color.RED);
@@ -48,7 +49,7 @@ public class PesoFragment extends Fragment {
 
 
 
-        final List<Integer> Kilos = new ArrayList<>();
+
         for (int i = 40; i<= 250; i++){
             Kilos.add(i);
         }

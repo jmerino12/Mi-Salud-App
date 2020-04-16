@@ -4,12 +4,16 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,22 +22,28 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jonathan.proyectopit2.comunicacion.AdicionalesToDatos;
 import com.jonathan.proyectopit2.controller.PagerController;
 import com.jonathan.proyectopit2.tabs.AdicionalesFragment;
 import com.jonathan.proyectopit2.tabs.PesoFragment;
 import com.jonathan.proyectopit2.tabs.PresionFragment;
 
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.Calendar;
 
 public class DatosFragment extends Fragment {
     private TextInputEditText date,hora;
+    private EditText adicionales;
     private FirebaseAuth auth;
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog timePickerDialog;
@@ -41,6 +51,11 @@ public class DatosFragment extends Fragment {
     private TextView nombre;
     private TabLayout tab;
     private ViewPager viewPager;
+    private Button registar;
+    AdicionalesFragment adicionalesFragment;
+    private String aux;
+    private EventBus bus = EventBus.getDefault();
+
 
 
 
@@ -53,8 +68,16 @@ public class DatosFragment extends Fragment {
         hora = view.findViewById(R.id.hora);
         date = view.findViewById(R.id.fecha);
         nombre = view.findViewById(R.id.nombresDatos);
+        adicionales = view.findViewById(R.id.txtAdicionales);
         tab = view.findViewById(R.id.tabs);
         viewPager = view.findViewById(R.id.viewer);
+        registar = view.findViewById(R.id.btnRegistrarDatos);
+        registar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            Toast.makeText(getActivity(),""+aux,Toast.LENGTH_LONG).show();
+            }
+        });
 
         hora.setInputType(InputType.TYPE_NULL);
         date.setInputType(InputType.TYPE_NULL);
@@ -100,7 +123,6 @@ public class DatosFragment extends Fragment {
                 timePickerDialog.show();
             }
         });
-
         return view;
     }
 
@@ -159,5 +181,22 @@ public class DatosFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        bus.register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        bus.unregister(this);
+    }
+    @Subscribe
+    public void obtener(AdicionalesToDatos datos){
+     String b = datos.getAdicionales();
+     aux = b;
     }
 }

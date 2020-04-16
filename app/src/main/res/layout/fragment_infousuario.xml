@@ -101,11 +101,13 @@
                 android:drawableLeft="@drawable/ic_contact_phone_black_24dp"
                 android:drawablePadding="10dp" />
         </com.google.android.material.textfield.TextInputLayout>
+
         <Button
+            android:id="@+id/btnActualizar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Actualizar"
-            android:fontFamily="@font/fredoka_one"/>
+            android:fontFamily="@font/fredoka_one"
+            android:text="Actualizar" />
     </LinearLayout>
 
 </LinearLayout>
