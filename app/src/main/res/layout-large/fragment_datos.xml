@@ -36,6 +36,7 @@
             android:layout_width="127dp"
             android:layout_height="match_parent"
             android:hint="@string/fecha">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/fecha"
                 android:layout_alignParentRight="true"
@@ -61,33 +62,31 @@
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:paddingTop="50dp"
+        android:layout_height="match_parent"
         android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="365dp">
+            android:layout_height="400sp">
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="1dp">
             </com.google.android.material.tabs.TabLayout>
-
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewer"
                 android:layout_width="match_parent"
-                android:layout_height="264dp"
+                android:layout_height="324dp"
                 android:layout_below="@+id/tabs" />
-            <Button
-                android:id="@+id/btnRegistrarDatos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="1dp"
-                android:layout_marginBottom="5dp"
-                android:text="@string/añadir" />
         </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnRegistrarDatos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/añadir" />
     </LinearLayout>
 
 </LinearLayout>
