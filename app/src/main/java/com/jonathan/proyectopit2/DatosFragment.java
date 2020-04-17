@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -60,7 +62,7 @@ public class DatosFragment extends Fragment {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference reference;
     private FirebaseAuth mAuth;
-
+    private TextInputLayout fecha1,hora1;
 
 
     @Nullable
@@ -75,6 +77,8 @@ public class DatosFragment extends Fragment {
         tab = view.findViewById(R.id.tabs);
         viewPager = view.findViewById(R.id.viewer);
         registar = view.findViewById(R.id.btnRegistrarDatos);
+        fecha1 = view.findViewById(R.id.date);
+        hora1 = view.findViewById(R.id.horaDato);
 
         hora.setInputType(InputType.TYPE_NULL);
         date.setInputType(InputType.TYPE_NULL);
@@ -130,19 +134,56 @@ public class DatosFragment extends Fragment {
                 String id = mAuth.getCurrentUser().getUid();
                 String fecha = date.getText().toString();
                 String horaReg = hora.getText().toString();
-                String adicionales = auxAdicioanles.toString();
-                String peso = auxPeso.toString();
+                String adicionales = auxAdicioanles;
+                String peso = auxPeso;
+                String sistolica = auxSistolica;
+                String diastolica = auxDistolica;
+                if (adicionales== null){
+                    presion.setUdid(UUID.randomUUID().toString());
+                    presion.setFecha(fecha);
+                    presion.setPresionSistolica(sistolica);
+                    presion.setPresionDiastolica(diastolica);
+                    presion.setHora(horaReg);
+                    presion.setAdicionales("Sin info");
+                    presion.setPeso(peso);
+
+                    Toast.makeText(getActivity(),"Agrege informacion al campo Adicionales", Toast.LENGTH_SHORT).show();
+                }else if(peso== null ){
+                    presion.setUdid(UUID.randomUUID().toString());
+                    presion.setFecha(fecha);
+                    presion.setPresionSistolica(sistolica);
+                    presion.setPresionDiastolica(diastolica);
+                    presion.setHora(horaReg);
+                    presion.setAdicionales(adicionales);
+                    presion.setPeso("Sin info");
+
+                    Toast.makeText(getActivity(),"Agrege informacion al campo Peso", Toast.LENGTH_SHORT).show();
+                }else if(sistolica== null || diastolica ==null){
+                    presion.setUdid(UUID.randomUUID().toString());
+                    presion.setFecha(fecha);
+                    presion.setPresionSistolica("Sin info");
+                    presion.setPresionDiastolica("Sin info");
+                    presion.setHora(horaReg);
+                    presion.setAdicionales(adicionales);
+                    presion.setPeso(peso);
+
+                    Toast.makeText(getActivity(),"Agrege informacion de la Presion", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    presion.setUdid(UUID.randomUUID().toString());
+                    presion.setFecha(fecha);
+                    presion.setPresionSistolica(sistolica);
+                    presion.setPresionDiastolica(diastolica);
+                    presion.setHora(horaReg);
+                    presion.setAdicionales(adicionales);
+                    presion.setPeso(peso);
+
+                    reference.child("Presion").child(id).child(presion.getUdid()).setValue(presion);
+                    Toast.makeText(getActivity(),"Datos guardados en la base de datos", Toast.LENGTH_SHORT).show();
+                }
 
 
-                presion.setUdid(UUID.randomUUID().toString());
-                presion.setFecha(fecha);
-                presion.setPresionSistolica(auxSistolica);
-                presion.setPresionDiastolica(auxDistolica);
-                presion.setHora(horaReg);
-                presion.setAdicionales(adicionales);
-                presion.setPeso(peso);
 
-                reference.child("Presion").child(id).child(presion.getUdid()).setValue(presion);
 
                // Toast.makeText(getActivity(),"Fecha:"+ fecha + "Hora:" + horaReg + "Sistolica: " +auxSistolica + "Diastolica: "+ auxDistolica + "Adicionales" + adicionales + "Peso:" + peso,Toast.LENGTH_LONG).show();
             }
@@ -222,7 +263,7 @@ public class DatosFragment extends Fragment {
     public void obtenerDatos(AdicionalesToDatos datos){
      String b = datos.getAdicionales();
      if (b == null || b.isEmpty()){
-         auxAdicioanles = "";
+         auxAdicioanles = "Sin informacion";
      }else {
          auxAdicioanles = b;
      }
@@ -232,7 +273,7 @@ public class DatosFragment extends Fragment {
     public void obtenerPeso(PesoToDatos datos){
         String b = datos.getPeso();
         if (b == null || b.isEmpty()) {
-            auxPeso = "";
+            auxPeso = "Sin informacion";
         }else {
             auxPeso = b;
         }
@@ -242,7 +283,40 @@ public class DatosFragment extends Fragment {
     public void obtenerPresion(PresionToDatos datos){
         String a = datos.getDiastolica();
         String b = datos.getSistolica();
-        auxDistolica = a;
-        auxSistolica = b;
+        if(a == null || a.isEmpty()){
+            auxDistolica = "Sin informacion";
+        }else if(b.isEmpty()  || b == null){
+            auxSistolica = "Sin informacion";
+        }
+        else{
+            auxDistolica = a;
+            auxSistolica = b;
+        }
+
     }
+    private Boolean fecha(){
+        String val = fecha1.getEditText().getText().toString();
+        if (val.isEmpty()) {
+            fecha1.setError("El campo no puede estar vacío.");
+            return false;
+        }
+        else {
+            fecha1.setError(null);
+            fecha1.setErrorEnabled(false);
+            return true;
+        }
+    }
+    private Boolean hora(){
+        String val = hora1.getEditText().getText().toString();
+        if (val.isEmpty()) {
+            fecha1.setError("El campo no puede estar vacío.");
+            return false;
+        }
+        else {
+            fecha1.setError(null);
+            fecha1.setErrorEnabled(false);
+            return true;
+        }
+    }
+
 }
